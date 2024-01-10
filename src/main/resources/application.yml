@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    hikari:
+      local:
+        jdbc-url: jdbc:mysql://${LOCAL_DATABASE_URL}
+        username: ${LOCAL_DATABASE_USERNAME}
+        password: ${LOCAL_DATABASE_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+      titi:
+        jdbc-url: jdbc:mysql://${TITI_DATABASE_URL}
+        username: ${TITI_DATABASE_USERNAME}
+        password: ${TITI_DATABASE_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+  batch:
+    jdbc:
+      initialize-schema: never
+    job:
+      enabled: true
+      names: migrationJob
+    chunk-size: ${CHUNK_SIZE}
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        default_batch_fetch_size: ${CHUNK_SIZE}
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: validate
