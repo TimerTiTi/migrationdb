@@ -1,4 +1,4 @@
-package com.titi.migrationdb.infra.db.local.entity;
+package com.titi.migrationdb.infra.db.titi.entity;
 
 import java.time.LocalDateTime;
 
@@ -18,12 +18,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Entity(name = "syncLogs")
-@Table(name = "syncLogs")
+@Entity(name = "dailies")
+@Table(name = "dailies")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SyncLog {
+public class Daily {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,10 +34,22 @@ public class SyncLog {
 	private User user;
 
 	@Column(nullable = false)
-	private Integer dailysCount;
+	private LocalDateTime day;
 
 	@Column(nullable = false)
-	private Integer uploadCount;
+	private Integer maxTime;
+
+	@Column(columnDefinition = "JSON", nullable = false)
+	private String timeline;
+
+	@Column(columnDefinition = "JSON", nullable = false)
+	private String tasks;
+
+	@Column(columnDefinition = "JSON")
+	private String taskHistorys;
+
+	@Column(nullable = false)
+	private String status;
 
 	@Column(nullable = false)
 	private LocalDateTime createdAt;

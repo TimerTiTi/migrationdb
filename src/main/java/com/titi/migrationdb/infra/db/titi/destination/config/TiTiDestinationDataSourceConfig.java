@@ -1,4 +1,4 @@
-package com.titi.migrationdb.infra.db.local.config;
+package com.titi.migrationdb.infra.db.titi.destination.config;
 
 import javax.sql.DataSource;
 
@@ -7,7 +7,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -20,35 +19,33 @@ import com.zaxxer.hikari.HikariDataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-	entityManagerFactoryRef = "localEntityManagerFactory",
-	transactionManagerRef = "localTransactionManager"
+	entityManagerFactoryRef = "titiDestinationEntityManagerFactory",
+	transactionManagerRef = "titiDestinationTransactionManager",
+	basePackages = {"com.titi.migrationdb.infra.db.titi.destination.repository"}
 )
-public class LocalDataSourceConfig {
+public class TiTiDestinationDataSourceConfig {
 
-	@Primary
-	@Bean(name = "localDataSource")
+	@Bean(name = "titiDestinationDataSource")
 	@BatchDataSource
-	@ConfigurationProperties(prefix = "spring.datasource.hikari.local")
-	public DataSource localDataSource() {
+	@ConfigurationProperties(prefix = "spring.datasource.hikari.titi-destination")
+	public DataSource titiDestinationDataSource() {
 		return DataSourceBuilder.create()
 			.type(HikariDataSource.class)
 			.build();
 	}
 
-	@Primary
-	@Bean(name = "localEntityManagerFactory")
-	public LocalContainerEntityManagerFactoryBean localEntityManagerFactory() {
+	@Bean(name = "titiDestinationEntityManagerFactory")
+	public LocalContainerEntityManagerFactoryBean titiDestinationEntityManagerFactory() {
 		final LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-		factoryBean.setDataSource(localDataSource());
+		factoryBean.setDataSource(titiDestinationDataSource());
 		factoryBean.setPackagesToScan("com.titi.migrationdb.infra.db.titi.entity");
 		factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		return factoryBean;
 	}
 
-	@Primary
-	@Bean(name = "localTransactionManager")
-	public PlatformTransactionManager localTransactionManager() {
-		return new JpaTransactionManager(localEntityManagerFactory().getObject());
+	@Bean(name = "titiDestinationTransactionManager")
+	public PlatformTransactionManager titiDestinationTransactionManager() {
+		return new JpaTransactionManager(titiDestinationEntityManagerFactory().getObject());
 	}
 
 }

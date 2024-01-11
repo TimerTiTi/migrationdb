@@ -30,12 +30,14 @@
       │     │     └── 📂task
       │     └── 📂infra
       │     │     └── 📂db
-      │     │     │     ├── 📂local // destination
+      │     │     │     ├── 📂local  // Batch execution and batch metadata management
       │     │     │     │     ├── 📂config
-      │     │     │     │     ├── 📂entity
-      │     │     │     │     └── 📂repository
-      │     │     │     └── 📂titi // source
-      │     │     │     │     ├── 📂config
-      │     │     │     │     ├── 📂entity
-      │     │     │     │     └── 📂repository
+      │     │     │     └── 📂titi 
+      │     │     │     │     ├── 📂entity // TITI entity
+      │     │     │     │     ├── 📂source // Migration source
+      │     │     │     │     │     ├── 📂config
+      │     │     │     │     │     └── 📂repository
+      │     │     │     │     └── 📂destination // Migration destination
+      │     │     │     │     │     ├── 📂config
+      │     │     │     │     │     └── 📂repository
 ```

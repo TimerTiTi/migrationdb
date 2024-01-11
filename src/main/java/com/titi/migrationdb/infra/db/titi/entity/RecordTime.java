@@ -18,12 +18,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Entity(name = "timelines")
-@Table(name = "timelines")
+@Entity(name = "recordTimes")
+@Table(name = "recordTimes")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class TiTiTimeLine {
+public class RecordTime {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,83 +31,43 @@ public class TiTiTimeLine {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userId")
-	private TiTiUser user;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "dailyId")
-	private TiTiDaily daily;
+	private User user;
 
 	@Column(nullable = false)
-	private Integer time0;
+	private Integer settedTimerTime;
 
 	@Column(nullable = false)
-	private Integer time1;
+	private Integer settedGoalTime;
 
 	@Column(nullable = false)
-	private Integer time2;
+	private Integer savedSumTime;
 
 	@Column(nullable = false)
-	private Integer time3;
+	private Integer savedTimerTime;
 
 	@Column(nullable = false)
-	private Integer time4;
+	private Integer savedStopwatchTime;
 
 	@Column(nullable = false)
-	private Integer time5;
+	private Integer savedGoalTime;
 
 	@Column(nullable = false)
-	private Integer time6;
+	private Integer recordingMode;
 
 	@Column(nullable = false)
-	private Integer time7;
+	private String recordTask;
 
 	@Column(nullable = false)
-	private Integer time8;
+	private Integer recordTaskFromTime;
 
 	@Column(nullable = false)
-	private Integer time9;
+	private Boolean recording;
 
 	@Column(nullable = false)
-	private Integer time10;
+	private LocalDateTime recordStartAt;
 
-	@Column(nullable = false)
-	private Integer time11;
-
-	@Column(nullable = false)
-	private Integer time12;
-
-	@Column(nullable = false)
-	private Integer time13;
-
-	@Column(nullable = false)
-	private Integer time14;
-
-	@Column(nullable = false)
-	private Integer time15;
-
-	@Column(nullable = false)
-	private Integer time16;
-
-	@Column(nullable = false)
-	private Integer time17;
-
-	@Column(nullable = false)
-	private Integer time18;
-
-	@Column(nullable = false)
-	private Integer time19;
-
-	@Column(nullable = false)
-	private Integer time20;
-
-	@Column(nullable = false)
-	private Integer time21;
-
-	@Column(nullable = false)
-	private Integer time22;
-
-	@Column(nullable = false)
-	private Integer time23;
+	@Column(columnDefinition = "JSON", nullable = false)
+	private String recordStartTimeline;
 
 	@Column(nullable = false)
 	private LocalDateTime createdAt;

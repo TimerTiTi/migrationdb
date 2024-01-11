@@ -1,4 +1,4 @@
-package com.titi.migrationdb.infra.db.local.entity;
+package com.titi.migrationdb.infra.db.titi.entity;
 
 import java.time.LocalDateTime;
 

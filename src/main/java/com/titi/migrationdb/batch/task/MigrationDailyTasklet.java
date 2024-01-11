@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import com.titi.migrationdb.batch.service.MigrationDailyService;
-import com.titi.migrationdb.infra.db.titi.entity.TiTiDaily;
+import com.titi.migrationdb.infra.db.titi.entity.Daily;
 
 @Slf4j
 @Component
@@ -27,7 +27,7 @@ public class MigrationDailyTasklet implements Tasklet {
 	public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) {
 		log.info("[execute] Migration was started.");
 		int pageNumber = 0;
-		Page<TiTiDaily> dailyPage;
+		Page<Daily> dailyPage;
 		do {
 			dailyPage = migrationDailyService.migrateInChunks(pageNumber++, chunkSize);
 		} while (dailyPage.hasNext());

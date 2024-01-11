@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import com.titi.migrationdb.batch.service.MigrationSyncLogService;
-import com.titi.migrationdb.infra.db.titi.entity.TiTiSyncLog;
+import com.titi.migrationdb.infra.db.titi.entity.SyncLog;
 
 @Slf4j
 @Component
@@ -27,7 +27,7 @@ public class MigrationSyncLogTasklet implements Tasklet {
 	public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) {
 		log.info("[execute] Migration was started.");
 		int pageNumber = 0;
-		Page<TiTiSyncLog> syncLogPage;
+		Page<SyncLog> syncLogPage;
 		do {
 			syncLogPage = migrationSyncLogService.migrateInChunks(pageNumber++, chunkSize);
 		} while (syncLogPage.hasNext());

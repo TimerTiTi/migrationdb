@@ -6,10 +6,15 @@ spring:
         username: ${LOCAL_DATABASE_USERNAME}
         password: ${LOCAL_DATABASE_PASSWORD}
         driver-class-name: com.mysql.cj.jdbc.Driver
-      titi:
-        jdbc-url: jdbc:mysql://${TITI_DATABASE_URL}
-        username: ${TITI_DATABASE_USERNAME}
-        password: ${TITI_DATABASE_PASSWORD}
+      titi-source:
+        jdbc-url: jdbc:mysql://${TITI_SOURCE_DATABASE_URL}
+        username: ${TITI_SOURCE_DATABASE_USERNAME}
+        password: ${TITI_SOURCE_DATABASE_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+      titi-destination:
+        jdbc-url: jdbc:mysql://${TITI_DESTINATION_DATABASE_URL}
+        username: ${TITI_DESTINATION_DATABASE_USERNAME}
+        password: ${TITI_DESTINATION_DATABASE_PASSWORD}
         driver-class-name: com.mysql.cj.jdbc.Driver
   batch:
     jdbc:

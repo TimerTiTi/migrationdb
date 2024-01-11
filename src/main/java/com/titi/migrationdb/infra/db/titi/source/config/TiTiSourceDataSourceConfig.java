@@ -1,4 +1,4 @@
-package com.titi.migrationdb.infra.db.titi.config;
+package com.titi.migrationdb.infra.db.titi.source.config;
 
 import javax.sql.DataSource;
 
@@ -19,33 +19,33 @@ import com.zaxxer.hikari.HikariDataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-	entityManagerFactoryRef = "titiEntityManagerFactory",
-	transactionManagerRef = "titiTransactionManager",
-	basePackages = {"com.titi.migrationdb.infra.db.titi.repository"}
+	entityManagerFactoryRef = "titiSourceEntityManagerFactory",
+	transactionManagerRef = "titiSourceTransactionManager",
+	basePackages = {"com.titi.migrationdb.infra.db.titi.source.repository"}
 )
-public class TiTiDataSourceConfig {
+public class TiTiSourceDataSourceConfig {
 
-	@Bean(name = "titiDataSource")
+	@Bean(name = "titiSourceDataSource")
 	@BatchDataSource
-	@ConfigurationProperties(prefix = "spring.datasource.hikari.titi")
-	public DataSource titiDataSource() {
+	@ConfigurationProperties(prefix = "spring.datasource.hikari.titi-source")
+	public DataSource titiSourceDataSource() {
 		return DataSourceBuilder.create()
 			.type(HikariDataSource.class)
 			.build();
 	}
 
-	@Bean(name = "titiEntityManagerFactory")
-	public LocalContainerEntityManagerFactoryBean titiEntityManagerFactory() {
+	@Bean(name = "titiSourceEntityManagerFactory")
+	public LocalContainerEntityManagerFactoryBean titiSourceEntityManagerFactory() {
 		final LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-		factoryBean.setDataSource(titiDataSource());
+		factoryBean.setDataSource(titiSourceDataSource());
 		factoryBean.setPackagesToScan("com.titi.migrationdb.infra.db.titi.entity");
 		factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		return factoryBean;
 	}
 
-	@Bean(name = "titiTransactionManager")
-	public PlatformTransactionManager titiTransactionManager() {
-		return new JpaTransactionManager(titiEntityManagerFactory().getObject());
+	@Bean(name = "titiSourceTransactionManager")
+	public PlatformTransactionManager titiSourceTransactionManager() {
+		return new JpaTransactionManager(titiSourceEntityManagerFactory().getObject());
 	}
 
 }
